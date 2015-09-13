@@ -1,0 +1,30 @@
+code concerns:
+This is a traveling salesman problem in its finest! So the algorithm will end up being both very memory intensive and algorithmicly complex. What fun!
+
+How will this be used? 
+I imagine a user on a website searching to travel Europe through trains, with an input of a multiple citys. 
+This leads me to believe the input graph will change a lot. The likely hood that two users with start from the same city and travel to the exact same city is low. Or the user will want to change the city's they are traveling to. 
+I have decided not to chache the results of a search. This will lead to much more computations, true, so the effort should be spent to optimize the algorithm!
+
+*** How to run ***
+
+Requires atleast java 1.7
+The easiest way would be to open the project in Intellij and execute the tests or main.
+
+If your super married to the command line, I have included a jar MSTrainJava.jar which you can run with >
+java -cp MSTrainJava.jar com.mstreeter.trains.Main
+
+It should look like this:
+
+Input graph string like: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7
+Output #1: 9
+Output #2: 5
+Output #3: 13
+Output #4: 22
+Output #5: NO SUCH ROUTE
+Output #6: 2
+Output #7: 3
+Output #8: 9
+Output #9: 9
+Output #10: 7
