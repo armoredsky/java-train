@@ -14,6 +14,11 @@ public class AdjacentMap implements TrainGraph{
     }
 
     @Override
+    public Set<String> getNodeSet() {
+        return adjacencyMap.keySet();
+    }
+
+    @Override
     public void addNode(String node) {
         if(!adjacencyMap.containsKey(node)){
             adjacencyMap.put(node, new HashMap<String, Integer>());
@@ -48,4 +53,5 @@ public class AdjacentMap implements TrainGraph{
 
         return distance;
     }
-}
+
+  }

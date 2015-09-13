@@ -5,6 +5,8 @@ import java.util.Set;
 
 public interface TrainGraph {
 
+    public Set<String> getNodeSet();
+
     public void addNode(String node);
 
     public void addAdjacentNode(String node, String Adjacent, int distance);
