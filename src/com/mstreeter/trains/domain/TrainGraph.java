@@ -1,6 +1,7 @@
 package com.mstreeter.trains.domain;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TrainGraph {
 
@@ -8,7 +9,7 @@ public interface TrainGraph {
 
     public void addAdjacentNode(String node, String Adjacent, int distance);
 
-    public List<String> getAdjacentNodes(String node);
+    public Set<String> getAdjacentNodes(String node);
 
     public int getDistance(String startNode, String endNode );
 
