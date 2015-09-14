@@ -4,7 +4,9 @@ import com.mstreeter.trains.domain.AdjacentMap;
 import com.mstreeter.trains.domain.NoRouteException;
 import com.mstreeter.trains.domain.TrainGraph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class GraphAnalyzerService {
     public TrainGraph buildTrainGraph(String graphString){
@@ -121,51 +123,51 @@ public class GraphAnalyzerService {
 
 
 
-//
-//    public int getRouteCountLessThanDistance(String start, String end, int maxDistance) {
-//        int routeCount = 0;
-//
-//        LinkedHashMap<String, Integer> routesDistanceMap = getRouteDistanceMapMaxDistance(start, maxDistance);
-//        for (String route : routesDistanceMap.keySet()) {
-//            if (route.endsWith(end) && !route.equals(start)) {
-//                routeCount++;
-//            }
-//        }
-//        return routeCount;
-//    }
+
+    public int getRouteCountLessThanDistance(String start, String end, int maxDistance) {
+        int routeCount = 0;
+
+        LinkedHashMap<String, Integer> routesDistanceMap = getRouteDistanceMapMaxDistance(start, maxDistance);
+        for (String route : routesDistanceMap.keySet()) {
+            if (route.endsWith(end) && !route.equals(start)) {
+                routeCount++;
+            }
+        }
+        return routeCount;
+    }
 
 
 
 
-//    public LinkedHashMap<String, Integer> getRouteDistanceMapMaxDistance(String start, int maxDistance) {
-//        LinkedHashMap<String, Integer> routesDistanceMap = new LinkedHashMap<>();
-//
-//        ArrayList<String> currentRoutes = new ArrayList<>();
-//        ArrayList<String> nextRoutes;
-//        routesDistanceMap.put(start, 0);
-//        currentRoutes.add(start);
-//
-//        while (currentRoutes.size() > 0) {
-//            nextRoutes = new ArrayList<>();
-//            for (String currentRoute : currentRoutes) {
-//                String lastStop = currentRoute.substring(currentRoute.length() - 1);
-//                HashMap<String, Integer> adjacentNodes = adjacencyMap.get(lastStop);
-//                if (adjacentNodes != null) {
-//                    for (String adjacentKey : adjacentNodes.keySet()) {
-//                        Integer currentDistance = routesDistanceMap.get(currentRoute);
-//                        String newRoute = currentRoute + adjacentKey;
-//                        Integer newDistance = currentDistance + adjacentNodes.get(adjacentKey);
-//                        if (newDistance < maxDistance) {
-//                            nextRoutes.add(newRoute);
-//                            routesDistanceMap.put(newRoute, newDistance);
-//                        }
-//                    }
-//                }
-//            }
-//            currentRoutes.clear();
-//            currentRoutes.addAll(nextRoutes);
-//        }
-//        return routesDistanceMap;
-//    }
+    public LinkedHashMap<String, Integer> getRouteDistanceMapMaxDistance(String start, int maxDistance) {
+        LinkedHashMap<String, Integer> routesDistanceMap = new LinkedHashMap<>();
+
+        ArrayList<String> currentRoutes = new ArrayList<>();
+        ArrayList<String> nextRoutes;
+        routesDistanceMap.put(start, 0);
+        currentRoutes.add(start);
+
+        while (currentRoutes.size() > 0) {
+            nextRoutes = new ArrayList<>();
+            for (String currentRoute : currentRoutes) {
+                String lastStop = currentRoute.substring(currentRoute.length() - 1);
+                HashMap<String, Integer> adjacentNodes = adjacencyMap.get(lastStop);
+                if (adjacentNodes != null) {
+                    for (String adjacentKey : adjacentNodes.keySet()) {
+                        Integer currentDistance = routesDistanceMap.get(currentRoute);
+                        String newRoute = currentRoute + adjacentKey;
+                        Integer newDistance = currentDistance + adjacentNodes.get(adjacentKey);
+                        if (newDistance < maxDistance) {
+                            nextRoutes.add(newRoute);
+                            routesDistanceMap.put(newRoute, newDistance);
+                        }
+                    }
+                }
+            }
+            currentRoutes.clear();
+            currentRoutes.addAll(nextRoutes);
+        }
+        return routesDistanceMap;
+    }
 
 }
