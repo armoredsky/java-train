@@ -20,8 +20,8 @@ GraphAnalyzerService has the business logic the user is interested in utilizing.
 Requires atleast java 1.7
 The easiest way would be to open the project in Intellij and execute the tests or main.
 
-If your love the command line, I have included a jar MSTrainJava.jar which you can run with >
-java -cp MSTrainJava.jar com.mstreeter.trains.Main
+If your love the command line, I have included a jar ms-java-train.jar which you can run with >
+java -jar ms-java-train.jar
 
 It should look like this:
 
