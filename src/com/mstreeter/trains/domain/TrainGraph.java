@@ -1,6 +1,5 @@
 package com.mstreeter.trains.domain;
 
-import java.util.List;
 import java.util.Set;
 
 public interface TrainGraph {
@@ -13,7 +12,5 @@ public interface TrainGraph {
 
     public Set<String> getAdjacentNodes(String node);
 
-    public int getDistance(String startNode, String endNode );
-
-    public int getRouteDistance(List<String> route);
+    public long getDistance(String startNode, String endNode ) throws NoRouteException;
 }

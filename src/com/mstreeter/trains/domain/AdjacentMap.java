@@ -1,9 +1,6 @@
 package com.mstreeter.trains.domain;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class AdjacentMap implements TrainGraph{
 
@@ -33,25 +30,18 @@ public class AdjacentMap implements TrainGraph{
 
     @Override
     public Set<String> getAdjacentNodes(String node) {
+        if(adjacencyMap.get(node) == null){
+            return new HashSet<>();
+        }
         return adjacencyMap.get(node).keySet();
     }
 
     @Override
-    public int getDistance(String startNode, String endNode) {
-
-        return adjacencyMap.get(startNode).get(endNode);
-    }
-
-    @Override
-    public int getRouteDistance(List<String> route) {
-        int distance = 0;
-        String start = route.remove(0);
-        for( String end: route){
-            distance += getDistance(start, end);
-            start = end;
+    public long getDistance(String startNode, String endNode) throws NoRouteException {
+        try{
+            return adjacencyMap.get(startNode).get(endNode);
+        }catch (Exception e){
+            throw new NoRouteException();
         }
-
-        return distance;
     }
-
-  }
+}
