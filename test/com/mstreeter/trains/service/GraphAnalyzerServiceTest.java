@@ -69,7 +69,7 @@ public class GraphAnalyzerServiceTest extends TestBase {
         assertThat(actual, is(expected));
 
         //largest long before it goes overboard
-        assertThat(service.getRouteCount(givenTG, "C", "C", 134, true), is(6_565_747_955_185_067_648L));
+        assertThat(service.getRouteCount(givenTG, "C", "C", 134, true), is(6_074_759_510_567_587_936L));
     }
 
     @Test

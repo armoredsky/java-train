@@ -4,14 +4,12 @@ import com.mstreeter.trains.domain.AdjacentMap;
 import com.mstreeter.trains.domain.NoRouteException;
 import com.mstreeter.trains.domain.TrainGraph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class GraphAnalyzerService {
     public TrainGraph buildTrainGraph(String graphString){
         TrainGraph tg = new AdjacentMap();
-        String[] valuesArray = graphString.split(", ");
+        String[] valuesArray = graphString.trim().split(", ");
 
         for (String values : valuesArray) {
             String start = values.substring(0, 1);
