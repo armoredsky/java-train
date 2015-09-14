@@ -11,10 +11,10 @@ abstract public class TestBase {
         }
 
         for(String startNode: actual.getNodeSet()){
-            if(!actual.getAdjacentNodes(startNode).equals(expected.getAdjacentNodes(startNode))){
+            if(!actual.getAdjacentNodesKeys(startNode).equals(expected.getAdjacentNodesKeys(startNode))){
                 return false;
             }
-            for(String endNode : actual.getAdjacentNodes(startNode)){
+            for(String endNode : actual.getAdjacentNodesKeys(startNode)){
                 try{
                     if(actual.getDistance(startNode, endNode) != expected.getDistance(startNode, endNode)){
                         return false;

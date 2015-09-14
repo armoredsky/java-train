@@ -29,11 +29,19 @@ public class AdjacentMap implements TrainGraph{
     }
 
     @Override
-    public Set<String> getAdjacentNodes(String node) {
+    public Set<String> getAdjacentNodesKeys(String node) {
         if(adjacencyMap.get(node) == null){
             return new HashSet<>();
         }
         return adjacencyMap.get(node).keySet();
+    }
+
+    //i don't actually like this method. only here for my naieve implementating of getRouteCountLessThanDistance
+    public HashMap<String, Integer> getAdjacentNodes(String node) {
+        if(adjacencyMap.get(node) == null){
+            return new HashMap<>();
+        }
+        return adjacencyMap.get(node);
     }
 
     @Override

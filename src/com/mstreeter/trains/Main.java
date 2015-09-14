@@ -29,7 +29,7 @@ public class Main {
                 .append("Output #8: ").append(service.getShortestRoute(tg, "A", "C")).append("\n")
                 .append("Output #9: ").append(service.getShortestRoute(tg, "C", "C")).append("\n")
 
-//                .append("Output #10: ").append(service.getRouteCountLessThanDistance(tg, "C", "C", 30)).append("\n")
+                .append("Output #10: ").append(service.getRouteCountLessThanDistance(tg, "C", "C", 30)).append("\n")
                 ;
         System.out.println(sb.toString());
 

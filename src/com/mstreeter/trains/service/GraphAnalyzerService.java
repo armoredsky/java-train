@@ -55,7 +55,7 @@ public class GraphAnalyzerService {
             nextMap = new HashMap<>();
             for(String key: currentMap.keySet()){
                 long numberOnNode = currentMap.get(key);
-                for(String adjacentNode: tg.getAdjacentNodes(key)){
+                for(String adjacentNode: tg.getAdjacentNodesKeys(key)){
                     long num = nextMap.containsKey(adjacentNode) ? nextMap.get(adjacentNode) : 0L;
                     nextMap.put(adjacentNode, num + numberOnNode);
                 }
@@ -77,6 +77,7 @@ public class GraphAnalyzerService {
         return routeCount;
     }
 
+    //Could be better written as Dijkstra’s
     public String getShortestRoute(TrainGraph tg, String start, String end) {
         Long shortestDistance = null;
 
@@ -90,7 +91,7 @@ public class GraphAnalyzerService {
             count ++;
             nextRouteDistanceMap = new HashMap<>();
             for(String startNode: currentRouteDistanceMap.keySet()){
-                for(String adjNode: tg.getAdjacentNodes(startNode)){
+                for(String adjNode: tg.getAdjacentNodesKeys(startNode)){
                     try{
                         long addedDistance = tg.getDistance(startNode, adjNode);
                         long newDistance = currentRouteDistanceMap.get(startNode) + addedDistance;
@@ -112,22 +113,12 @@ public class GraphAnalyzerService {
         return "NO SUCH ROUTE";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public int getRouteCountLessThanDistance(String start, String end, int maxDistance) {
+    //very naive implementation, I have an idea to fix it by counting using permutation of loops
+    //but I didn't have time to fully write that idea yet.
+    public int getRouteCountLessThanDistance(TrainGraph tg, String start, String end, int maxDistance) {
         int routeCount = 0;
 
-        LinkedHashMap<String, Integer> routesDistanceMap = getRouteDistanceMapMaxDistance(start, maxDistance);
+        LinkedHashMap<String, Integer> routesDistanceMap = getRouteDistanceMapMaxDistance(tg, start, maxDistance);
         for (String route : routesDistanceMap.keySet()) {
             if (route.endsWith(end) && !route.equals(start)) {
                 routeCount++;
@@ -136,10 +127,7 @@ public class GraphAnalyzerService {
         return routeCount;
     }
 
-
-
-
-    public LinkedHashMap<String, Integer> getRouteDistanceMapMaxDistance(String start, int maxDistance) {
+    public LinkedHashMap<String, Integer> getRouteDistanceMapMaxDistance(TrainGraph tg, String start, int maxDistance) {
         LinkedHashMap<String, Integer> routesDistanceMap = new LinkedHashMap<>();
 
         ArrayList<String> currentRoutes = new ArrayList<>();
@@ -151,7 +139,7 @@ public class GraphAnalyzerService {
             nextRoutes = new ArrayList<>();
             for (String currentRoute : currentRoutes) {
                 String lastStop = currentRoute.substring(currentRoute.length() - 1);
-                HashMap<String, Integer> adjacentNodes = adjacencyMap.get(lastStop);
+                HashMap<String, Integer> adjacentNodes = tg.getAdjacentNodes(lastStop);
                 if (adjacentNodes != null) {
                     for (String adjacentKey : adjacentNodes.keySet()) {
                         Integer currentDistance = routesDistanceMap.get(currentRoute);

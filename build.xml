@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<project name="java-train" default="test.unit" basedir=".">
+
+    <path id="compile.classpath">
+    </path>
+
+    <path id="test.unit.classpath">
+        <fileset dir="lib/test">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="build/classes"/>
+        <pathelement path="build/test.unit"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="build" />
+    </target>
+
+    <target name="init">
+        <mkdir dir="build"/>
+        <mkdir dir="build/classes"/>
+        <mkdir dir="build/test.unit"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="src"
+               destdir="build/classes"
+               source="1.7"
+               target="1.7" debug="on">
+
+            <classpath refid="compile.classpath"/>
+        </javac>
+
+        <copy todir="build/classes">
+            <fileset dir="src" includes="**/*.properties,**/*.xml"/>
+        </copy>
+    </target>
+
+    <target name="test.unit.compile" depends="clean,compile">
+        <javac srcdir="src"
+               destdir="build/classes"
+               source="1.7"
+               target="1.7" debug="on">
+            <classpath refid="test.unit.classpath"/>
+        </javac>
+    </target>
+
+    <target name="test.unit" depends="test.unit.compile" description="Run the unit tests">
+        <junit fork="yes" forkmode="perBatch" failureproperty="test.unit.failed">
+            <jvmarg value="-Dorg.jboss.logging.provider=slf4j"/>
+            <jvmarg value="-Xmx1024m"/>
+            <classpath refid="test.unit.classpath" />
+            <formatter type="brief" usefile="false" />
+            <formatter type="xml" usefile="true" />
+            <batchtest fork="yes" todir="build/test-results/unit">
+                <fileset dir="build/test.unit/">
+                    <include name="**/*Test.class" />
+                    <exclude name="**/Abstract*.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+        <fail message="test.unit failed" if="test.unit.failed" />
+    </target>
+
+    <target name="dev.build" depends="clean, init, compile" description="Dev rebuild"/>
+
+    <target name="dev.build.test" depends="dev.build, test.unit" description="Dev rebuild and run unit test"/>
+</project>
