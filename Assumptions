@@ -6,12 +6,21 @@ I imagine a user on a website searching to travel Europe through trains, with an
 This leads me to believe the input graph will change a lot. The likely hood that two users with start from the same city and travel to the exact same city is low. Or the user will want to change the city's they are traveling to. 
 I have decided not to chache the results of a search. This will lead to much more computations, true, so the effort should be spent to optimize the algorithm!
 
+
+How I implemented:
+I split the problem into the domain object of a TrainGraph and a service that builds and uses it to search.
+A TrainGraph could be represented with a number of graph implementations (HashMap<HashMaps>, List<List>, Array<Array>).
+So, it deserved to have a interface and with interchangeable graphs. Given more time, I would implement different graphs and compare there performance against one another.
+
+GraphAnalyzerService has the business logic the user is interested in utilizing. This would fit nicely into a Spring MVC service under a controller.
+
+
 *** How to run ***
 
 Requires atleast java 1.7
 The easiest way would be to open the project in Intellij and execute the tests or main.
 
-If your super married to the command line, I have included a jar MSTrainJava.jar which you can run with >
+If your love the command line, I have included a jar MSTrainJava.jar which you can run with >
 java -cp MSTrainJava.jar com.mstreeter.trains.Main
 
 It should look like this:
@@ -28,3 +37,10 @@ Output #7: 3
 Output #8: 9
 Output #9: 9
 Output #10: 7
+
+If you wish to run the test from the commandline (Like in a jenkins build)
+there is a build.xml which include the task dev.build.test which rebuilds the solution and runs junit test
+>>>
+ant dev.build.test
+
+enjoy!
